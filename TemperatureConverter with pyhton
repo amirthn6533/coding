@@ -1,0 +1,59 @@
+import tkinter as tk
+
+
+class TemperatureConverter:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Temperature Converter")
+
+        # create the temperature input field and label
+        self.temp_input = tk.Entry(master, width=20)
+        self.temp_input_label = tk.Label(master, text="Enter temperature:")
+        self.temp_input_label.grid(row=0, column=0)
+        self.temp_input.grid(row=0, column=1)
+
+        # create the temperature scale selection radio buttons
+        self.scale_var = tk.StringVar()
+        self.scale_var.set("Celsius")
+        self.celsius_rb = tk.Radiobutton(master, text="Celsius", variable=self.scale_var, value="Celsius")
+        self.fahrenheit_rb = tk.Radiobutton(master, text="Fahrenheit", variable=self.scale_var, value="Fahrenheit")
+        self.kelvin_rb = tk.Radiobutton(master, text="Kelvin", variable=self.scale_var, value="Kelvin")
+        self.celsius_rb.grid(row=1, column=0)
+        self.fahrenheit_rb.grid(row=1, column=1)
+        self.kelvin_rb.grid(row=1, column=2)
+
+        # create the convert button
+        self.convert_button = tk.Button(master, text="Convert", command=self.convert_temp)
+        self.convert_button.grid(row=2, column=1)
+
+        # create the temperature output label
+        self.temp_output_label = tk.Label(master, text="")
+        self.temp_output_label.grid(row=3, column=0, columnspan=3)
+
+    def convert_temp(self):
+        # get the temperature and scale from the input fields
+        temperature = float(self.temp_input.get())
+        scale = self.scale_var.get()
+
+        # convert the temperature to the selected scale
+        if scale == "Celsius":
+            celsius = temperature
+            fahrenheit = (celsius * 9 / 5) + 32
+            kelvin = celsius + 273.15
+        elif scale == "Fahrenheit":
+            fahrenheit = temperature
+            celsius = (fahrenheit - 32) * 5 / 9
+            kelvin = celsius + 273.15
+        elif scale == "Kelvin":
+            kelvin = temperature
+            celsius = kelvin - 273.15
+            fahrenheit = (celsius * 9 / 5) + 32
+
+        # update the output label with the converted temperatures
+        self.temp_output_label.config(
+            text=f"Celsius: {celsius:.2f}\nFahrenheit: {fahrenheit:.2f}\nKelvin: {kelvin:.2f}")
+
+
+root = tk.Tk()
+app = TemperatureConverter(root)
+root.mainloop()
