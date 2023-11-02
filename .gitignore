@@ -1,3 +1,9 @@
+#python
+#my first AI 
+
+
+
+
 def play_music():
     media = instance.media_new('Sepehr-Khalse-Shabe-Tavalod-(Ft-Sijal-Sami-Low)-320')
     player.set_media(media)
