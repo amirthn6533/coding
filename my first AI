@@ -1,0 +1,70 @@
+#python
+#my first AI 
+
+
+
+
+def play_music():
+    media = instance.media_new('Sepehr-Khalse-Shabe-Tavalod-(Ft-Sijal-Sami-Low)-320')
+    player.set_media(media)
+
+    player.play()
+
+    speak("Playing music")
+
+    while player.get_state() != vlc.State.Ended:
+        pass
+
+
+def search_wikipedia(query):
+    try:
+        result = wikipedia.summary(query, sentences=2)
+        speak(result)
+    except:
+        speak("Sorry, I couldn't find any information on that topic.")
+
+
+def tell_joke():
+    joke = pyjokes.get_joke()
+    speak(joke)
+
+
+pairs = [
+    ['hi', ['hello!', 'hi there!', 'hey!', 'hi!']],
+    ['how are you', ['I am doing well, thanks!', 'I am doing great!', 'I am fine, thanks for asking!']],
+    ['what are you up to', ['Just chatting with you!', 'Not much, what about you?', 'Nothing much, just hanging out.']],
+    ['tell me a joke', ['Why was the math book sad? Because it had too many problems!',
+                        'Why don’t scientists trust atoms? Because they make up everything!']],
+    ['bye', ['Goodbye!', 'See you later!', 'Take care!']]
+]
+
+while True:
+    speak("booobaaa booobababa ")
+    text = recognize_speech()
+    print("You said:", text)
+
+    if "hello" in text:
+        speak(random.choice(pairs[0][1]))
+    elif "play music" in text:
+        play_music()
+    elif "how are you" in text:
+        speak(random.choice(pairs[1][1]))
+    elif"how old are you" in text:
+        speak("im minor bitch")
+    elif "what is your name" in text:
+        speak("you can call me marvel")
+    elif "what are you up to" in text:
+        speak(random.choice(pairs[2][1]))
+    elif "meet you" in text:
+        speak("how wonderful to meet you")
+    elif "why your name is Marvel" in text:
+        speak("my name is taken from the smallest dog in the world")
+    elif "what is" in text:
+        query = text.replace("what", "").strip()
+        search_wikipedia(query)
+    elif "joke" in text:
+        tell_joke()
+    elif "bye" in text:
+        speak(random.choice(pairs[4][1]))
+
+        break
